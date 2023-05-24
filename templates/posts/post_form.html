@@ -1,0 +1,8 @@
+{% extends "posts/index.html" %}
+{% block content %}
+<form method="post" style="background-color: aquamarine; padding: 1rem;">
+  {% csrf_token %}
+  {{ form.as_p }}
+  <input type="submit" value="Send message">
+</form>
+{% endblock %}

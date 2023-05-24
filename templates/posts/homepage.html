@@ -3,8 +3,17 @@
 {% block title %}My amazing blog{% endblock %}
 
 {% block content %}
-{% for entry in blog_entries %}
-    <h2>{{ entry.title }}</h2>
-    <p>{{ entry.name }}</p>
-{% endfor %}
+<div style="background-color: aquamarine; padding: 1rem;">
+    {% for entry in blog_entries %}
+        <div style="background-color: bisque; display: flex; justify-content: space-evenly; align-items: center;">
+            <h2>{{ entry.title|upper }}</h2>
+            <p>{{ entry.content }}</p>
+            <a href="{% url 'update_post' pk=entry.pk  %}">Edit</a>
+            <a href="{% url 'delete_post' pk=entry.pk  %}">Delete</a>
+
+        </div>   
+        <hr/>
+
+    {% endfor %}
+</div>
 {% endblock %}

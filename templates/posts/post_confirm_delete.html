@@ -1,0 +1,12 @@
+{% extends "posts/index.html" %}
+
+{% block title %}My amazing blog{% endblock %}
+
+{% block content %}
+
+<form action="" method="post">
+  {% csrf_token %}
+  <input type="submit" class="btn btn-primary" value="Delete" name="confirm_delete" />
+</form>
+
+{% endblock %}
