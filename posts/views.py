@@ -5,6 +5,7 @@ from django.views.generic import CreateView, UpdateView, DeleteView
 from .models import Post
 from .forms import CreateForm
 from django.urls import reverse_lazy
+from django.core.paginator import Paginator
 
 
 def post_list(request):
@@ -13,8 +14,14 @@ def post_list(request):
 
 class Blogs(View):
     def get(self, request):
-        posts = Post.objects.all()
-        context = {"blog_entries": posts}
+        posts = Post.objects.all()    
+        pag = Paginator(posts, 2)
+        query_page =request.GET.get("page")
+        if query_page:
+            page= pag.get_page(query_page)
+        else:
+            page= pag.get_page(1)
+        context = {"blog_entries": posts, "page_obj": page}
         return render(request, "posts/homepage.html", context=context)
 
     def post(self, request):

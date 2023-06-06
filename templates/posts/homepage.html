@@ -3,8 +3,9 @@
 {% block title %}My amazing blog{% endblock %}
 
 {% block content %}
+
 <div style="background-color: aquamarine; padding: 1rem;">
-    {% for entry in blog_entries %}
+    {% for entry in page_obj.object_list %}
         <div style="background-color: bisque; display: flex; justify-content: space-evenly; align-items: center;">
             <h2>{{ entry.title|upper }}</h2>
             <p>{{ entry.content }}</p>
@@ -15,5 +16,23 @@
         <hr/>
 
     {% endfor %}
+</div>
+
+<div class="pagination">
+    <span class="step-links">
+        {% if page_obj.has_previous %}
+            <a href="?page=1">&laquo; first</a>
+            <a href="?page={{ page_obj.previous_page_number }}">previous</a>
+        {% endif %}
+
+        <span class="current">
+            Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+        </span>
+
+        {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}">next</a>
+            <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+        {% endif %}
+    </span>
 </div>
 {% endblock %}
